@@ -97,27 +97,30 @@ var Turtle = (function() {
     // x0 = 0; 
     // y0 = 0;
 
-    var point = new Object();
-    point.x = x;
-    point.y = y;
+    // var point = new Object();
+    // point.x = x;
+    // point.y = y;
 
-    Path.push(point);
+    // Path.push(point);
 
-    for(var i = 0; i < Path.length; i++){
+    // for(var i = 0; i < Path.length; i++){
       
-      this.context.moveTo(Path[i].x,Path[i].y);
-      if (Path.length > 1 && i > 1) {
-          console.log(" i", i);
+    //   this.context.moveTo(Path[i].x,Path[i].y);
+    //   if (Path.length > 1 && i > 1) {
+    //       console.log(" i", i);
 
-      this.context.lineTo(Path[i-1].x,Path[i-1].y);
-    }else
-      {
-    console.log(" inizio");
-      }
-      this.context.lineTo(Path[i].x,Path[i].y);
-      this.context.stroke();
-    }
-   
+    //   this.context.lineTo(Path[i-1].x,Path[i-1].y);
+    // }else
+    //   {
+    // console.log(" inizio");
+    //   }
+    //   this.context.lineTo(Path[i].x,Path[i].y);
+    //   this.context.stroke();
+    // }
+    this.context.lineTo(x0,y0);
+    this.context.stroke();
+    x0 = x;
+    y0 = y;
   }
 
   
