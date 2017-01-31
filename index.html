@@ -10,6 +10,15 @@
   <script type="text/javascript" src="js/turtle.js"></script>
   <script type="text/javascript" src="js/turtlesim.js"></script>
   <script type="text/javascript">
+    var init = true;
+    var x0 ; 
+    var y0 ;
+    var c;
+    var ctx;
+    var x ;
+    var y ;
+    var Path = new Array();
+
     function start() {
       var ros = new ROS('ws://54.191.14.121:9090');
       ros.on('connection', function() {
@@ -21,6 +30,7 @@
         turtleSim.spawnTurtle('turtle1');
         turtleSim.draw();
         console.log("ok");
+        
       });
     }
 </script>

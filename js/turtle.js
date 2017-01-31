@@ -32,6 +32,8 @@ var Turtle = (function() {
     // Represents the turtle as a PNG image.
     // that.image = new Image();
     // that.image.src = 'images/robot-turtle.png';
+    that.c=document.getElementById("world");
+
     that.draw();
     console.log("Draw turtle")
   };
@@ -69,13 +71,14 @@ var Turtle = (function() {
 
   Turtle.prototype.draw = function() {
 
-    var x = this.pose.position.x;
-    var y = this.pose.position.y;
+    x = this.pose.position.x;
+    y = this.pose.position.y;
     var imageWidth  = image.width;
     var imageHeight = image.height;
+    // ctx=c.getContext("2d");
 
-    console.log(" x e y ", x, y );
-    console.log("im drawing imageWidth imageHeight", imageWidth, imageHeight);
+    // console.log(" x e y ", x, y );
+    // console.log("im drawing imageWidth imageHeight", imageWidth, imageHeight);
     this.context.save();
 
 
@@ -89,9 +92,35 @@ var Turtle = (function() {
     , imageHeight
     );
     this.context.restore();
-    console.log("im drawing ", x, y);
-  };
 
+    // console.log("im drawing ", x, y);
+    // x0 = 0; 
+    // y0 = 0;
+
+    var point = new Object();
+    point.x = x;
+    point.y = y;
+
+    Path.push(point);
+
+    for(var i = 0; i < Path.length; i++){
+      
+      this.context.moveTo(Path[i].x,Path[i].y);
+      if (Path.length > 1 && i > 1) {
+          console.log(" i", i);
+
+      this.context.lineTo(Path[i-1].x,Path[i-1].y);
+    }else
+      {
+    console.log(" inizio");
+      }
+      this.context.lineTo(Path[i].x,Path[i].y);
+      this.context.stroke();
+    }
+   
+  }
+
+  
   Turtle.prototype.moveForward = function() {
     var velocity = new this.ros.Message({
       angular : 0
