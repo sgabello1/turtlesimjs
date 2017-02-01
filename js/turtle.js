@@ -1,7 +1,5 @@
 var Turtle = (function() {
-// Represents the turtle as a PNG image.
-    image = new Image();
-    image.src = 'images/robot-turtle.png';
+
 
   var Turtle = function(options) {
     var that = this;
@@ -29,9 +27,7 @@ var Turtle = (function() {
     });
     that.velocityTopic.subscribe(that.onVelocity.bind(that));
 
-    // Represents the turtle as a PNG image.
-    // that.image = new Image();
-    // that.image.src = 'images/robot-turtle.png';
+
     that.c=document.getElementById("world");
 
     that.draw();
@@ -42,23 +38,17 @@ var Turtle = (function() {
   Turtle.prototype.onVelocity = function(message) {
     this.linearVelocity  = message.linear;
     this.angularVelocity = message.angular;
-    // console.log("message.linear.x", message.linear.x)
-    // console.log("message.angular.y", message.angular.y)
+
 
     this.orientation = (this.orientation + this.angularVelocity.z) % (2 * Math.PI);
-    // console.log("this.orientation", this.orientation)
 
     var pose = new this.ros.Message({position:{}});
     pose.position.x = this.pose.position.x
       + Math.sin(this.orientation + (Math.PI / 2)) * this.linearVelocity.x;          
-      // console.log("pose.x",pose.x)
 
     pose.position.y = this.pose.position.y 
       + Math.cos(this.orientation + (Math.PI / 2)) * this.linearVelocity.x;
 
-     // pose.theta = this.orientation.y;
-    // pose.linear_velocity = this.linearVelocity;
-    // pose.angular_velocity = this.angularVelocity;
     this.pose = pose;
 
     var poseTopic = new this.ros.Topic({
@@ -93,34 +83,13 @@ var Turtle = (function() {
     );
     this.context.restore();
 
-    // console.log("im drawing ", x, y);
-    // x0 = 0; 
-    // y0 = 0;
-
-    // var point = new Object();
-    // point.x = x;
-    // point.y = y;
-
-    // Path.push(point);
-
-    // for(var i = 0; i < Path.length; i++){
-      
-    //   this.context.moveTo(Path[i].x,Path[i].y);
-    //   if (Path.length > 1 && i > 1) {
-    //       console.log(" i", i);
-
-    //   this.context.lineTo(Path[i-1].x,Path[i-1].y);
-    // }else
-    //   {
-    // console.log(" inizio");
-    //   }
-    //   this.context.lineTo(Path[i].x,Path[i].y);
-    //   this.context.stroke();
-    // }
-    this.context.lineTo(x0,y0);
-    this.context.stroke();
-    x0 = x;
-    y0 = y;
+    if(drawP) // draw path only if button is pressed
+    {
+        this.context.lineTo(x0,y0);
+        this.context.stroke();
+        x0 = x;
+        y0 = y;
+      }
   }
 
   

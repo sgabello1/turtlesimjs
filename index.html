@@ -1,23 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!-- <link rel="stylesheet" href="./css/bootstrap.min.css"> -->
-  <!-- <link rel="stylesheet" href="./css/keys.css">          -->
-  <!-- <link rel="stylesheet" href="./css/main.css">          -->
-
+       
   <script type="text/javascript" src="js/eventemitter2.js"></script>
   <script type="text/javascript" src="js/ros.js"></script>
   <script type="text/javascript" src="js/turtle.js"></script>
   <script type="text/javascript" src="js/turtlesim.js"></script>
   <script type="text/javascript">
+  // INIT
+  // Represents the turtle as a PNG image.
+    image = new Image();
+    image.src = 'images/robot-turtle.png';
     var init = true;
-    var x0 = 250; 
-    var y0 = 250;
+    var x0 = image.width/2; 
+    var y0 = image.length/2;
     var c;
     var ctx;
     var x ;
     var y ;
     var Path = new Array();
+    var drawP = true;
+
 
     function start() {
       var ros = new ROS('ws://54.191.14.121:9090');
@@ -32,6 +35,20 @@
         console.log("ok");
         
       });
+
+    }
+
+
+    function drawPath(){
+      drawP = !drawP;
+      console.log("set draw ", drawP);
+      var property = document.getElementById("bottonazzo");
+
+      if (drawP) 
+            property.style.backgroundColor = "#FFFFFF"
+        else 
+            property.style.backgroundColor = "#FF0000"
+
     }
 </script>
 </head>
@@ -46,8 +63,11 @@
   </style>
 
   <center>
-    <canvas id="world" width="500" height="500" style="border: 2px solid black"></canvas>
+    <canvas id="world" width="800" height="800" style="border: 2px solid black"></canvas>
+
   </center>
+      <button id="bottonazzo" width="1000"  height="500" onclick="drawPath()">Disegna il tracciato</button>
+
 </body>
 </html>
 
